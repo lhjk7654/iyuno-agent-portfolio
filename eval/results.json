@@ -1,0 +1,242 @@
+[
+  {
+    "question": "What are the characteristics of trustworthy AI?",
+    "expected_source": "nist_ai_rmf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0514
+  },
+  {
+    "question": "What is the purpose of the NIST AI Risk Management Framework?",
+    "expected_source": "nist_ai_rmf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0089
+  },
+  {
+    "question": "What are the four core functions of the AI RMF?",
+    "expected_source": "nist_ai_rmf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0082
+  },
+  {
+    "question": "What is generative AI?",
+    "expected_source": "nist_genai_profile.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0075
+  },
+  {
+    "question": "What are some risks associated with generative AI?",
+    "expected_source": "nist_genai_profile.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0083
+  },
+  {
+    "question": "What are the core functions of the NIST Cybersecurity Framework 2.0?",
+    "expected_source": "nist_csf_2_0.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0123
+  },
+  {
+    "question": "What is the purpose of the NIST Cybersecurity Framework?",
+    "expected_source": "nist_csf_overview.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 0,
+    "recall_at_5": 0,
+    "latency_seconds": 0.0081
+  },
+  {
+    "question": "What is the purpose of the NIST Privacy Framework?",
+    "expected_source": "nist_privacy_framework.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0077
+  },
+  {
+    "question": "What is zero trust architecture?",
+    "expected_source": "nist_zero_trust.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0071
+  },
+  {
+    "question": "What are the principles of zero trust?",
+    "expected_source": "nist_zero_trust.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0087
+  },
+  {
+    "question": "What is the purpose of the NIST Risk Management Framework?",
+    "expected_source": "nist_rmf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0068
+  },
+  {
+    "question": "What are security controls?",
+    "expected_source": "nist_security_controls.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0079
+  },
+  {
+    "question": "What is the purpose of security controls?",
+    "expected_source": "nist_security_controls.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0073
+  },
+  {
+    "question": "What is computer security incident response?",
+    "expected_source": "nist_incident_response.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0067
+  },
+  {
+    "question": "What are the major phases of incident response?",
+    "expected_source": "nist_incident_response.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0085
+  },
+  {
+    "question": "What is the Secure Software Development Framework?",
+    "expected_source": "nist_ssdf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0079
+  },
+  {
+    "question": "What are the practices of secure software development?",
+    "expected_source": "nist_ssdf.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0068
+  },
+  {
+    "question": "What is a cybersecurity supply chain risk?",
+    "expected_source": "nist_supply_chain.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0079
+  },
+  {
+    "question": "What is the purpose of supply chain risk management?",
+    "expected_source": "nist_supply_chain.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 0,
+    "recall_at_5": 0,
+    "latency_seconds": 0.0069
+  },
+  {
+    "question": "What is systems security engineering?",
+    "expected_source": "nist_system_security_engineering.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0081
+  },
+  {
+    "question": "What is penetration testing?",
+    "expected_source": "nist_penetration_testing.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.006
+  },
+  {
+    "question": "What is the purpose of penetration testing?",
+    "expected_source": "nist_penetration_testing.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0082
+  },
+  {
+    "question": "What is digital identity?",
+    "expected_source": "nist_digital_identity.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0063
+  },
+  {
+    "question": "What is identity proofing?",
+    "expected_source": "nist_digital_identity.txt",
+    "recall_at_1": 0,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0075
+  },
+  {
+    "question": "What is cryptographic key management?",
+    "expected_source": "nist_key_management.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0074
+  },
+  {
+    "question": "Why is log management important for cybersecurity?",
+    "expected_source": "nist_log_management.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0076
+  },
+  {
+    "question": "What are security considerations for cloud computing?",
+    "expected_source": "nist_cloud_computing.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0073
+  },
+  {
+    "question": "What are security concerns related to containers?",
+    "expected_source": "nist_container_security.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0069
+  },
+  {
+    "question": "What are intrusion detection and prevention systems?",
+    "expected_source": "nist_idps.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.008
+  },
+  {
+    "question": "What is computer forensics?",
+    "expected_source": "nist_forensics.txt",
+    "recall_at_1": 1,
+    "recall_at_3": 1,
+    "recall_at_5": 1,
+    "latency_seconds": 0.0077
+  }
+]

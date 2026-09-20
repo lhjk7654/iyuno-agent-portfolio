@@ -1,0 +1,122 @@
+[
+  {
+    "question": "What are the characteristics of trustworthy AI?",
+    "source": "nist_ai_rmf.txt"
+  },
+  {
+    "question": "What is the purpose of the NIST AI Risk Management Framework?",
+    "source": "nist_ai_rmf.txt"
+  },
+  {
+    "question": "What are the four core functions of the AI RMF?",
+    "source": "nist_ai_rmf.txt"
+  },
+  {
+    "question": "What is generative AI?",
+    "source": "nist_genai_profile.txt"
+  },
+  {
+    "question": "What are some risks associated with generative AI?",
+    "source": "nist_genai_profile.txt"
+  },
+  {
+    "question": "What are the core functions of the NIST Cybersecurity Framework 2.0?",
+    "source": "nist_csf_2_0.txt"
+  },
+  {
+    "question": "What is the purpose of the NIST Cybersecurity Framework?",
+    "source": "nist_csf_overview.txt"
+  },
+  {
+    "question": "What is the purpose of the NIST Privacy Framework?",
+    "source": "nist_privacy_framework.txt"
+  },
+  {
+    "question": "What is zero trust architecture?",
+    "source": "nist_zero_trust.txt"
+  },
+  {
+    "question": "What are the principles of zero trust?",
+    "source": "nist_zero_trust.txt"
+  },
+  {
+    "question": "What is the purpose of the NIST Risk Management Framework?",
+    "source": "nist_rmf.txt"
+  },
+  {
+    "question": "What are security controls?",
+    "source": "nist_security_controls.txt"
+  },
+  {
+    "question": "What is the purpose of security controls?",
+    "source": "nist_security_controls.txt"
+  },
+  {
+    "question": "What is computer security incident response?",
+    "source": "nist_incident_response.txt"
+  },
+  {
+    "question": "What are the major phases of incident response?",
+    "source": "nist_incident_response.txt"
+  },
+  {
+    "question": "What is the Secure Software Development Framework?",
+    "source": "nist_ssdf.txt"
+  },
+  {
+    "question": "What are the practices of secure software development?",
+    "source": "nist_ssdf.txt"
+  },
+  {
+    "question": "What is a cybersecurity supply chain risk?",
+    "source": "nist_supply_chain.txt"
+  },
+  {
+    "question": "What is the purpose of supply chain risk management?",
+    "source": "nist_supply_chain.txt"
+  },
+  {
+    "question": "What is systems security engineering?",
+    "source": "nist_system_security_engineering.txt"
+  },
+  {
+    "question": "What is penetration testing?",
+    "source": "nist_penetration_testing.txt"
+  },
+  {
+    "question": "What is the purpose of penetration testing?",
+    "source": "nist_penetration_testing.txt"
+  },
+  {
+    "question": "What is digital identity?",
+    "source": "nist_digital_identity.txt"
+  },
+  {
+    "question": "What is identity proofing?",
+    "source": "nist_digital_identity.txt"
+  },
+  {
+    "question": "What is cryptographic key management?",
+    "source": "nist_key_management.txt"
+  },
+  {
+    "question": "Why is log management important for cybersecurity?",
+    "source": "nist_log_management.txt"
+  },
+  {
+    "question": "What are security considerations for cloud computing?",
+    "source": "nist_cloud_computing.txt"
+  },
+  {
+    "question": "What are security concerns related to containers?",
+    "source": "nist_container_security.txt"
+  },
+  {
+    "question": "What are intrusion detection and prevention systems?",
+    "source": "nist_idps.txt"
+  },
+  {
+    "question": "What is computer forensics?",
+    "source": "nist_forensics.txt"
+  }
+]
