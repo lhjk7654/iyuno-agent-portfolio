@@ -1,6 +1,5 @@
 import os
 import time
-from unittest import result
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -10,12 +9,14 @@ from app.retriever import search
 
 load_dotenv()
 
+
 client = OpenAI(
     api_key=os.getenv("GEMINI_API_KEY"),
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    timeout=30.0,
 )
 
-MODEL = "gemini-3.6-flash"
+MODEL = "gemini-3.5-flash-lite"
 
 
 def build_context(results):
@@ -42,13 +43,21 @@ def build_context(results):
 
 
 def ask_question(question: str, top_k: int = 5):
+    # 1. Retrieval
     retrieval_start = time.perf_counter()
+
+    print("\n[1/3] Searching documents...")
 
     results = search(question, top_k=top_k)
 
     retrieval_latency = time.perf_counter() - retrieval_start
 
+    print(f"[1/3] Retrieval completed: {retrieval_latency:.3f}s")
+
+    # 2. Build context
     context = build_context(results)
+
+    print("[2/3] Context built.")
 
     prompt = f"""
 You are a cybersecurity and AI risk assistant.
@@ -71,27 +80,48 @@ Source context:
 {context}
 """
 
+    # 3. Gemini
     llm_start = time.perf_counter()
 
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-    )
+    print("[3/3] Sending request to Gemini...")
+
+    try:
+        response = client.chat.completions.create(
+            model=MODEL,
+            reasoning_effort="low",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+        )
+
+    except Exception as e:
+        print(f"[3/3] Gemini request failed: {e}")
+
+        return {
+            "answer": f"Gemini API 요청 중 오류가 발생했습니다.\n\n{e}",
+            "retrieval_latency": retrieval_latency,
+            "llm_latency": time.perf_counter() - llm_start,
+            "total_latency": time.perf_counter() - retrieval_start,
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "results": results,
+        }
 
     llm_latency = time.perf_counter() - llm_start
+
+    print(f"[3/3] Gemini response received: {llm_latency:.3f}s")
+
+    answer = response.choices[0].message.content
 
     usage = response.usage
 
     prompt_tokens = getattr(usage, "prompt_tokens", 0) or 0
     completion_tokens = getattr(usage, "completion_tokens", 0) or 0
     total_tokens = getattr(usage, "total_tokens", 0) or 0
-
-    answer = response.choices[0].message.content
 
     return {
         "answer": answer,

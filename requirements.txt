@@ -4,3 +4,6 @@ chromadb
 openai
 python-dotenv
 pytest
+streamlit
+torch
+torchvision
