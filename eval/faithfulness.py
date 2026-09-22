@@ -12,12 +12,15 @@ from app.rag import ask_question
 
 load_dotenv()
 
+
 client = OpenAI(
     api_key=os.getenv("GEMINI_API_KEY"),
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    timeout=30.0,
 )
 
-MODEL = "gemini-3.6-flash"
+
+MODEL = "gemini-3.5-flash-lite"
 QUESTIONS_FILE = Path("eval/questions.json")
 
 
@@ -44,14 +47,16 @@ def build_context(results):
 def parse_json_response(text):
     text = text.strip()
 
-    # 일반 JSON
     try:
         return json.loads(text)
     except json.JSONDecodeError:
         pass
 
-    # ```json ... ``` 형태
-    match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
+    match = re.search(
+        r"```json\s*(.*?)\s*```",
+        text,
+        re.DOTALL,
+    )
 
     if match:
         try:
@@ -59,23 +64,28 @@ def parse_json_response(text):
         except json.JSONDecodeError:
             pass
 
-    # 응답 안에서 { ... } 부분만 추출
     start = text.find("{")
     end = text.rfind("}")
 
     if start != -1 and end != -1 and start < end:
         try:
-            return json.loads(text[start:end + 1])
+            return json.loads(
+                text[start:end + 1]
+            )
         except json.JSONDecodeError:
             pass
 
     return None
 
 
-def evaluate_faithfulness(question, answer, context):
+def evaluate_faithfulness(
+    question,
+    answer,
+    context,
+):
     prompt = f"""
-You are evaluating whether an AI assistant answer is supported
-by the provided source context.
+You are evaluating whether an AI assistant answer
+is supported by the provided source context.
 
 Question:
 {question}
@@ -103,6 +113,7 @@ are supported by the source context.
         try:
             response = client.chat.completions.create(
                 model=MODEL,
+                reasoning_effort="low",
                 messages=[
                     {
                         "role": "user",
@@ -111,43 +122,77 @@ are supported by the source context.
                 ],
             )
 
-            text = response.choices[0].message.content or ""
+            text = (
+                response.choices[0]
+                .message.content
+                or ""
+            )
+
             parsed = parse_json_response(text)
 
             if parsed is not None:
-                return parsed
+                return {
+                    "success": True,
+                    "faithful": bool(
+                        parsed.get("faithful", False)
+                    ),
+                    "reason": parsed.get(
+                        "reason",
+                        "",
+                    ),
+                }
 
             return {
-                "faithful": False,
-                "reason": "Evaluator returned an invalid JSON response.",
+                "success": False,
+                "faithful": None,
+                "reason": (
+                    "Evaluator returned "
+                    "invalid JSON."
+                ),
             }
 
         except Exception as e:
-            print(f"Evaluator error (attempt {attempt + 1}/3): {e}")
+            print(
+                f"Evaluator error "
+                f"(attempt {attempt + 1}/3): {e}"
+            )
 
             if attempt < 2:
                 time.sleep(5)
 
     return {
-        "faithful": False,
-        "reason": "Evaluator API failed after 3 attempts.",
+        "success": False,
+        "faithful": None,
+        "reason": (
+            "Evaluator API failed "
+            "after 3 attempts."
+        ),
     }
 
 
 def main():
     questions = json.loads(
-        QUESTIONS_FILE.read_text(encoding="utf-8")
+        QUESTIONS_FILE.read_text(
+            encoding="utf-8"
+        )
     )
 
-    # 우선 5개만 평가
+    # Start with 5 questions because
+    # Gemini API quota may be limited.
     sample = questions[:5]
 
     results = []
 
-    for index, item in enumerate(sample, start=1):
+    for index, item in enumerate(
+        sample,
+        start=1,
+    ):
         question = item["question"]
 
-        print(f"\n[{index}/{len(sample)}] {question}")
+        print(
+            f"\n[{index}/{len(sample)}] "
+            f"{question}"
+        )
 
         try:
             rag_result = ask_question(
@@ -167,41 +212,99 @@ def main():
 
             result = {
                 "question": question,
-                "faithful": bool(
-                    evaluation.get("faithful", False)
-                ),
-                "reason": evaluation.get("reason", ""),
+                "success": evaluation["success"],
+                "faithful": evaluation["faithful"],
+                "reason": evaluation["reason"],
             }
 
             results.append(result)
 
-            print(f"Faithful: {result['faithful']}")
-            print(f"Reason: {result['reason']}")
+            if evaluation["success"]:
+                print(
+                    f"Faithful: "
+                    f"{evaluation['faithful']}"
+                )
+                print(
+                    f"Reason: "
+                    f"{evaluation['reason']}"
+                )
+            else:
+                print(
+                    "Evaluation failed. "
+                    "This question will not "
+                    "be included in the score."
+                )
 
         except Exception as e:
-            print(f"Question failed: {e}")
+            print(
+                f"RAG request failed: {e}"
+            )
 
             results.append(
                 {
                     "question": question,
-                    "faithful": False,
-                    "reason": f"RAG request failed: {e}",
+                    "success": False,
+                    "faithful": None,
+                    "reason": (
+                        f"RAG request failed: {e}"
+                    ),
                 }
             )
 
+        # Avoid hitting the free-tier
+        # requests-per-minute limit.
+        if index < len(sample):
+            time.sleep(13)
+
+    evaluated = [
+        item
+        for item in results
+        if item["success"]
+    ]
+
     faithful_count = sum(
-        1 for item in results
+        1
+        for item in evaluated
         if item["faithful"]
     )
 
-    score = faithful_count / len(results)
+    if evaluated:
+        score = (
+            faithful_count
+            / len(evaluated)
+        )
+    else:
+        score = None
 
     print("\n" + "=" * 60)
     print("FAITHFULNESS EVALUATION")
     print("=" * 60)
-    print(f"Questions: {len(results)}")
-    print(f"Faithful: {faithful_count}")
-    print(f"Faithfulness: {score:.3f}")
+
+    print(
+        f"Questions attempted: "
+        f"{len(results)}"
+    )
+
+    print(
+        f"Successfully evaluated: "
+        f"{len(evaluated)}"
+    )
+
+    print(
+        f"Faithful: "
+        f"{faithful_count}"
+    )
+
+    if score is not None:
+        print(
+            f"Faithfulness: "
+            f"{score:.3f}"
+        )
+    else:
+        print(
+            "Faithfulness: "
+            "NOT AVAILABLE"
+        )
 
     output_file = Path(
         "eval/faithfulness_results.json"
@@ -216,7 +319,9 @@ def main():
         encoding="utf-8",
     )
 
-    print(f"Saved: {output_file}")
+    print(
+        f"Saved: {output_file}"
+    )
 
 
 if __name__ == "__main__":
