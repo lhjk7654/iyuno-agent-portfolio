@@ -23,6 +23,56 @@ NIST AI 및 Cybersecurity 공개 문서를 기반으로 검색하고 답변하�
 * GitHub Actions CI
 * Streamlit web demo
 
+### Job Requirement Mapping
+
+| Iyuno AI Agent Engineer 요구사항 | 프로젝트 구현                           |
+| ---------------------------- | --------------------------------- |
+| LLM 기반 AI Agent 시스템 설계       | Gemini AI Agent                   |
+| RAG 검색 및 응답 시스템              | ChromaDB 기반 RAG                   |
+| Tool Calling                 | `search_documents` Tool           |
+| API / 데이터 통합                 | Gemini API + ChromaDB             |
+| 다단계 Agent workflow           | Agent → Tool → Retrieval → Answer |
+| 평가 및 품질 측정                   | Recall@k / Faithfulness / Latency |
+| 테스트 및 신뢰성                    | pytest + GitHub Actions CI        |
+| Demo / 실사용 인터페이스             | Streamlit                         |
+
+## 📌 Job Posting Source
+
+### Iyuno AI Agent Engineer
+
+* **Company:** Iyuno
+* **Position:** AI Agent Engineer
+* **Location:** Seoul / Hybrid
+* **Employment:** Full-time
+* **Requisition:** JR101122
+* **Application Deadline:** 2026-09-30
+* **Job Posting:** https://iyuno.wd3.myworkdayjobs.com/careers/job/seoul/ai-agent-engineer_jr101122
+
+### Project Connection
+
+The project requirements were derived from the AI Agent Engineer job posting and translated into an executable GitHub portfolio project.
+
+| Job Posting Requirement        | Portfolio Implementation          |
+| ------------------------------ | --------------------------------- |
+| LLM-based AI Agent             | Gemini AI Agent                   |
+| RAG search and response system | NIST document RAG                 |
+| Tool Calling                   | `search_documents` Tool           |
+| API / data integration         | Gemini API + ChromaDB             |
+| Multi-step workflow            | Agent → Tool → Retrieval → Answer |
+| Evaluation and feedback        | Recall@k / Faithfulness / Latency |
+| Reliability and testing        | pytest + GitHub Actions           |
+| Working demonstration          | Streamlit                         |
+
+### Related Job Posting
+
+The assignment also provided an optional RideFlux engineering recruitment track as an additional reference.
+
+* **RideFlux 2026 H2 Engineering Recruitment**
+* https://inthiswork.com/archives/393239
+* **Deadline:** 2026-09-27
+
+The primary implementation and evaluation in this repository are based on the **Iyuno AI Agent Engineer** position.
+
 ## 🏗️ Architecture
 
 ```text
@@ -377,8 +427,237 @@ python -m app.embeddings
 
 ```powershell
 python -m streamlit run app/web.py
+```
 
-Open the browser at:
+실행 후 브라우저에서 다음 주소로 접속합니다.
 
 ```text
 http://localhost:8501
+```
+
+Streamlit 데모에서는 다음 기능을 확인할 수 있습니다.
+
+* 사용자 질문 입력
+* Gemini Agent 실행
+* `search_documents` Tool Calling 여부 확인
+* 최종 답변 확인
+* Retrieved Sources 확인
+* Source document / chunk 확인
+
+### Run Tests
+
+```powershell
+python -m pytest -q
+```
+
+현재 테스트 결과:
+
+```text
+5 passed
+```
+
+### Run Retrieval Evaluation
+
+```powershell
+python -m eval.evaluate
+```
+
+### Run Faithfulness Evaluation
+
+```powershell
+python -m eval.faithfulness
+```
+
+> Faithfulness 평가는 현재 5-question sample에 대해 수행되었습니다.
+
+## 💼 Job Posting Source & Requirement Mapping
+
+이 프로젝트의 주요 대상 공고는 **Iyuno AI Agent Engineer**입니다.
+
+* Company: Iyuno
+* Position: AI Agent Engineer
+* Location: Seoul / Hybrid
+* Employment: Full-time
+* Requisition: JR101122
+* Application Deadline: 2026-09-30
+* Job Posting: https://iyuno.wd3.myworkdayjobs.com/careers/job/seoul/ai-agent-engineer_jr101122
+
+| Job Requirement    | Portfolio Implementation          |
+| ------------------ | --------------------------------- |
+| LLM 기반 AI Agent 설계 | Gemini AI Agent                   |
+| RAG 검색·응답 시스템      | NIST + ChromaDB RAG               |
+| Tool Calling       | `search_documents` Tool           |
+| API / 데이터 통합       | Gemini API + ChromaDB             |
+| 다단계 workflow       | Agent → Tool → Retrieval → Answer |
+| 평가 및 품질 측정         | Recall@k / Faithfulness / Latency |
+| Reliability        | pytest + GitHub Actions CI        |
+| Working Demo       | Streamlit                         |
+
+과제에서 추가 선택 트랙으로 제공된 RideFlux 공고:
+
+* RideFlux 2026 H2 Engineering Recruitment
+* https://inthiswork.com/archives/393239
+* Deadline: 2026-09-27
+
+본 repository의 실제 구현 및 평가는 **Iyuno AI Agent Engineer 공고**를 기준으로 진행했습니다.
+
+## 📈 Evaluation Artifacts
+
+30개의 평가 질문을 이용한 retrieval evaluation 결과:
+
+| Metric                    |        Result |
+| ------------------------- | ------------: |
+| Recall@1                  |     **0.767** |
+| Recall@3                  |     **0.933** |
+| Recall@5                  |     **0.933** |
+| Average Retrieval Latency | **0.009 sec** |
+
+Faithfulness 결과:
+
+| Metric                 |    Result |
+| ---------------------- | --------: |
+| Questions attempted    |         5 |
+| Successfully evaluated |         5 |
+| Faithful answers       |         5 |
+| Faithfulness           | **1.000** |
+
+> Faithfulness 결과는 전체 30문항이 아니라 **5-question sample**에 대한 결과입니다.
+
+관련 평가 파일:
+
+* [Evaluation Metrics](eval/metrics.json)
+* [Recall Metrics Graph](eval/plots/recall_metrics.png)
+* [Latency Graph](eval/plots/latency.png)
+* [Evaluation Summary Graph](eval/plots/evaluation_summary.png)
+* [Evaluation Plot Script](eval/create_plots.py)
+
+## 📚 Data Sources & Licensing
+
+이 프로젝트는 NIST에서 공개한 AI 및 Cybersecurity 관련 기술 문서를 사용합니다.
+
+* Source organization: National Institute of Standards and Technology (NIST)
+* Documents: **21**
+* Processed chunks: **7,391**
+* Processing date: **2026-09-23**
+* Original public PDF files are not redistributed in this repository.
+
+문서 출처, 처리 과정, attribution 및 licensing 정보:
+
+[DATA_SOURCES.md](DATA_SOURCES.md)
+
+## 🔒 Security
+
+* API key는 `.env` 환경변수로 관리합니다.
+* `.env`는 `.gitignore`에 포함되어 있습니다.
+* API credentials는 GitHub repository에 포함하지 않습니다.
+* Raw downloaded documents는 Git에 포함하지 않습니다.
+* Local ChromaDB 데이터도 Git에 포함하지 않습니다.
+* 개인정보 및 사내 비공개 데이터 대신 공개 NIST 문서를 사용합니다.
+
+## ⚠️ Limitations
+
+현재 프로젝트에는 다음과 같은 제한사항이 있습니다.
+
+* Retrieval 평가는 exact chunk-level relevance가 아닌 **source-level Recall@k**를 사용합니다.
+* Faithfulness는 전체 30문항이 아닌 **5-question sample**에 대해 평가했습니다.
+* 질문 표현과 문서 용어에 따라 retrieval 결과가 달라질 수 있습니다.
+* 현재 Agent는 document search 중심의 단일 Tool을 사용합니다.
+* Fresh clone에서는 ChromaDB를 다시 생성해야 합니다.
+* LLM response latency는 Gemini API와 네트워크 상태에 영향을 받습니다.
+* 현재 별도의 public cloud deployment는 포함하지 않았습니다.
+
+## 🔁 Reproducibility
+
+Fresh clone 환경에서는 다음 순서로 프로젝트를 재현할 수 있습니다.
+
+### 1. Clone
+
+```powershell
+git clone https://github.com/lhjk7654/iyuno-agent-portfolio.git
+cd iyuno-agent-portfolio
+```
+
+### 2. Virtual Environment
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+### 3. Install Dependencies
+
+```powershell
+pip install -r requirements.txt
+```
+
+### 4. Configure API Key
+
+프로젝트 루트에 `.env` 파일을 생성합니다.
+
+```text
+GEMINI_API_KEY=your_api_key_here
+```
+
+### 5. Build Vector Database
+
+```powershell
+python -m app.ingest
+python -m app.extract
+python -m app.chunk
+python -m app.embeddings
+```
+
+### 6. Run Demo
+
+```powershell
+python -m streamlit run app/web.py
+```
+
+### 7. Run Tests
+
+```powershell
+python -m pytest -q
+```
+
+### 8. Run Evaluation
+
+```powershell
+python -m eval.evaluate
+python -m eval.faithfulness
+```
+
+## 🚀 Future Improvements
+
+* Faithfulness 평가를 전체 평가 질문으로 확대
+* 추가 Tool 및 외부 API integration
+* Query routing 개선
+* Retrieval reranking 적용
+* Token usage 및 LLM cost tracking 강화
+* CI pipeline에 automated evaluation 추가
+* 사용자 feedback loop 구현
+* Streamlit public deployment
+
+## 📝 Project Summary
+
+이 프로젝트는 Iyuno AI Agent Engineer 채용공고의 핵심 요구사항을 실제 작동하는 GitHub 프로젝트로 구현한 포트폴리오입니다.
+
+주요 구현 요소:
+
+* LLM-based AI Agent orchestration
+* RAG-based document retrieval
+* Citation-aware responses
+* Tool Calling
+* 21개의 NIST 공개 문서 및 7,391 chunks
+* 30-question retrieval evaluation
+* Faithfulness evaluation
+* Latency measurement
+* pytest automated testing
+* GitHub Actions CI
+* Streamlit demonstration
+* Reproducible data processing pipeline
+
+즉, **작동하는 AI Agent 데모 + 정량적 평가 + 테스트 + CI + 재현 가능한 문서화**를 하나의 GitHub repository로 구성했습니다.
+
+## 🔗 Repository
+
+https://github.com/lhjk7654/iyuno-agent-portfolio
