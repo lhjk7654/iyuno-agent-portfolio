@@ -371,4 +371,14 @@ python -m app.embeddings
 
 이 과정을 통해 NIST PDF 문서를 처리하고 ChromaDB에 embedding을 저장합니다.
 
-## ▶️ R
+## ▶️ Run the Project
+
+### Streamlit Demo
+
+```powershell
+python -m streamlit run app/web.py
+
+Open the browser at:
+
+```text
+http://localhost:8501
