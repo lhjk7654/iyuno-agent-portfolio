@@ -525,10 +525,10 @@ Faithfulness 결과:
 
 관련 평가 파일:
 
-* [Evaluation Metrics](eval/metrics.json)
-* [Recall Metrics Graph](eval/plots/recall_metrics.png)
-* [Latency Graph](eval/plots/latency.png)
-* [Evaluation Summary Graph](eval/plots/evaluation_summary.png)
+* [Evaluation Metrics](evaluation/metrics.json)
+* [Recall Metrics Graph](evaluation/plots/recall_metrics.png)
+* [Latency Graph](evaluation/plots/latency.png)
+* [Evaluation Summary Graph](evaluation/plots/evaluation_summary.png)
 * [Evaluation Plot Script](eval/create_plots.py)
 
 ## 📚 Data Sources & Licensing
